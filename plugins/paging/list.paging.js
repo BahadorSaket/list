@@ -35,29 +35,21 @@ List.prototype.plugins.paging = function(locals, options) {
 
         pagingList.clear();
 
-        var first = pagingList.add({
-            page: '<a class="button grey no-ajax' + prev_class + '" href="javascript:void(0);">&laquo; First</a>'
-        })[0].elm;
         var prev = pagingList.add({
-            page: '<a class="button grey no-ajax' + prev_class + '" href="javascript:void(0);">&lsaquo; Previous</a>'
+            page: '<a class="button grey no-ajax' + prev_class + '" href="javascript:void(0);"><span><i class="ss-left"></i></span></a>'
         })[0].elm;
         var pageNum = pagingList.add({
-            page: "<span>" + currentPage + " of " + pages + "</span>"
+            page: '<span class="page">Page ' + currentPage + " of " + pages + "</span>"
         })[0].elm;
         var next = pagingList.add({
-            page: '<a class="button grey no-ajax' + next_class + '" href="javascript:void(0);">Next &rsaquo;</a>'
-        })[0].elm;
-        var last = pagingList.add({
-            page: '<a class="button grey no-ajax' + next_class + '" href="javascript:void(0);">Last &raquo;</a>'
+            page: '<a class="button grey no-ajax' + next_class + '" href="javascript:void(0);"><span><i class="ss-right"></i></span></a>'
         })[0].elm;
 
         if (!prev_class) {
-            addEvent(first, 1, page);
             addEvent(prev, currentPage - 1, page);
         }
         if (!next_class) {
             addEvent(next, currentPage + 1, page);
-            addEvent(last, pages, page);
         }
     };
 
