@@ -1,20 +1,30 @@
 List.prototype.plugins.paging = function(locals, options) {
     var list = this;
-    var pagingList;
     var init = function() {
         options = options || {};
-        pagingList = new List(list.listContainer.id, {
-            listClass: options.pagingClass || 'paging',
+        var topList = new List(list.listContainer.id, {
+            listClass: options.pagingClass || 'pagingTop',
             item: "<li><div class='page'></div></li>",
             valueNames: ['page'],
             searchClass: 'nosearchclass',
             sortClass: 'nosortclass'
         });
-        list.on('updated', refresh);
-        refresh();
+        var bottomList = new List(list.listContainer.id, {
+            listClass: options.pagingClass || 'pagingBottom',
+            item: "<li><div class='page'></div></li>",
+            valueNames: ['page'],
+            searchClass: 'nosearchclass',
+            sortClass: 'nosortclass'
+        });
+        list.on('updated', function() {
+            refresh(topList);
+            refresh(bottomList);
+        });
+        refresh(topList);
+        refresh(bottomList);
     };
 
-    var refresh = function() {
+    var refresh = function(pagingList) {
         var l = list.matchingItems.length,
             index = list.i,
             page = list.page,
